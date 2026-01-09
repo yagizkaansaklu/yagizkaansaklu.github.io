@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yağız Kaan Şaklu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            background-color: #000000;
+            color: #ffffff;
+            perspective: 1000px; /* 3D derinlik için şart */
+        }
+
+        #star-container {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.4;
+        }
+
+        h1 {
+            font-weight: 100;
+            font-size: 2.8rem;
+            letter-spacing: 8px;
+            margin-bottom: 4rem;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        /* Yan yana dizilim */
+        .container {
+            display: flex;
+            flex-direction: row; 
+            gap: 40px;
+            z-index: 1;
+        }
+
+        /* RGB Çerçeve ve 3D Konteynırı */
+        .btn-wrapper {
+            position: relative;
+            padding: 3px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400% 400%;
+            animation: moveRGB 8s linear infinite; /* Hız düşürüldü (8s) */
+            transition: transform 0.1s ease-out; /* Akıcı 3D hareketi */
+            transform-style: preserve-3d;
+        }
+
+        @keyframes moveRGB {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 400% 50%; }
+        }
+
+        .btn {
+            background: #000;
+            color: white;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 47px;
+            font-size: 1rem;
+            font-weight: 200;
+            display: block;
+            min-width: 180px;
+            text-align: center;
+            transition: background 0.3s;
+            transform: translateZ(20px); /* Yazıyı öne çıkarır */
+            white-space: nowrap;
+        }
+
+        .btn:hover {
+            background: #0a0a0a;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            opacity: 0.2;
+        }
+
+        /* Mobil uyum: Ekran küçükse butonlar alt alta gelsin */
+        @media (max-width: 600px) {
+            .container { flex-direction: column; }
+            h1 { font-size: 1.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div id="star-container"></div>
+
+    <h1>Yağız Kaan Şaklu</h1>
+
+    <div class="container">
+        <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+            <a href="#" class="btn">E-Defter XML</a>
+        </div>
+        <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+            <a href="#" class="btn">PassCase</a>
+        </div>
+    </div>
+
+    <footer>YAGIZ KAAN SAKLU &copy; 2026</footer>
+
+    <script>
+        // Yıldız oluşturma (Daha küçük ve zarif)
+        const container = document.getElementById('star-container');
+        for (let i = 0; i < 120; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 1.2;
+            star.style.width = size + 'px';
+            star.style.height = size + 'px';
+            star.style.top = Math.random() * 100 + '%';
+            star.style.left = Math.random() * 100 + '%';
+            container.appendChild(star);
+        }
+
+        // 3D Tilt Fonksiyonu
+        function tilt(e, el) {
+            const rect = el.getBoundingClientRect();
+            const x = e.clientX - rect.left; // Mouse X pozisyonu
+            const y = e.clientY - rect.top;  // Mouse Y pozisyonu
+            
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            
+            // Eğim açıları (hassasiyeti buradan ayarlayabilirsin)
+            const rotateX = (centerY - y) / 6; 
+            const rotateY = (x - centerX) / 10;
+
+            el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.1, 1.1, 1.1)`;
+        }
+
+        function resetTilt(el) {
+            el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+        }
+    </script>
+</body>
+</html>
