@@ -50,6 +50,7 @@
             flex-direction: row;
             gap: 30px;
             justify-content: center;
+            flex-wrap: wrap; /* Mobilde butonların taşmaması için eklendi */
         }
 
         .btn-wrapper {
@@ -84,7 +85,7 @@
         }
 
         @media (max-width: 768px) {
-            .container { flex-direction: column; gap: 20px; }
+            .container { flex-direction: column; gap: 20px; align-items: center; }
             h1 { letter-spacing: 6px; margin-bottom: 2rem; }
             .btn-wrapper:hover { transform: scale(1.05); }
         }
@@ -108,16 +109,16 @@
     <div class="content">
         <h1>Yağız Kaan Şaklu</h1>
         <div class="container">
-    <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
-        <a href="/edefterxml/" class="btn">E-Defter XML</a>
-    </div>
-    <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
-        <a href="https://github.com/yagizkaansaklu/PassCase" class="btn">PassCase</a>
-    </div>
-    <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
-        <a href="https://github.com/reldiscord/reldiscord" class="btn">RelDiscord</a>
-    </div>
-</div>
+            <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+                <a href="/edefterxml/" class="btn">E-Defter XML</a>
+            </div>
+            <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+                <a href="https://github.com/yagizkaansaklu/PassCase" class="btn">PassCase</a>
+            </div>
+            <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
+                <a href="https://github.com/reldiscord/reldiscord" class="btn">RelDiscord</a>
+            </div>
+        </div>
     </div>
 
     <footer>YAGIZ KAAN SAKLU &copy; 2026</footer>
