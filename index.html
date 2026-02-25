@@ -1,331 +1,646 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yağız Kaan Şaklu</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100;200&display=swap" rel="stylesheet">
-    <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            background-color: #000;
-            font-family: 'Inter', sans-serif;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+  <title>Yağız Kaan Şaklu · r3linex</title>
+  <!-- SEO meta -->
+  <meta name="description" content="- Yağız Kaan Şaklu -">
+  <meta name="keywords" content="yağız kaan şaklu, r3linex, relinex, kaan şaklu, şaklu, relDiscord, lenos craft">
+  <meta name="author" content="Yağız Kaan Şaklu">
+  <meta name="robots" content="index, follow">
+  <!-- Open Graph -->
+  <meta property="og:title" content="Yağız Kaan Şaklu · r3linex">
+  <meta property="og:description" content="Amatör yazılım geliştirici.">
+  <meta property="og:url" content="https://yagizkaansaklu.github.io">
+  <meta property="og:type" content="website">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://yagizkaansaklu.github.io">
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%238a2be2'/%3E%3Ctext x='50' y='70' font-size='60' text-anchor='middle' fill='%23ffffff' font-family='Arial'%3EY%3C/text%3E%3C/svg%3E">
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- AOS -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-        }
+    body {
+      font-family: 'Space Grotesk', sans-serif;
+      background-color: #000000; /* OLED siyahı */
+      color: #e9e2f5;
+      line-height: 1.6;
+      scroll-behavior: smooth;
+      opacity: 0;
+      animation: fadeIn 0.4s ease forwards;
+      overflow-x: hidden;
+      width: 100%;
+    }
 
-        .content {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-        }
+    @keyframes fadeIn {
+      to { opacity: 1; }
+    }
 
-        h1 {
-            font-weight: 100;
-            font-size: clamp(1.8rem, 6vw, 3rem);
-            letter-spacing: 12px;
-            margin-bottom: 3rem;
-            text-transform: uppercase;
-            color: white;
-            pointer-events: none;
-        }
+    /* Custom scrollbar (purple tones) */
+    ::-webkit-scrollbar {
+      width: 10px;
+      background: #0a0a0a;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0a0a0a;
+      border-left: 1px solid #1f1a2b;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #4a2a6b;
+      border-radius: 20px;
+      border: 2px solid #0a0a0a;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #9f5bff;
+    }
 
-        .container {
-            display: flex;
-            flex-direction: row;
-            gap: 30px;
-            justify-content: center;
-            flex-wrap: wrap; /* Mobilde butonların taşmaması için eklendi */
-        }
+    :root {
+      --purple-deep: #120b1a;
+      --purple-dark: #1e142b;
+      --purple-primary: #b77aff;
+      --purple-light: #dbb9ff;
+      --purple-glow: rgba(183, 122, 255, 0.35);
+      --bg-card: #0c0c0c;
+      --bg-card-alt: #111111;
+      --text-light: #f0e9ff;
+      --text-dim: #b4a6d9;
+      --border-dim: #2a1f33;
+    }
 
-        .btn-wrapper {
-            position: relative;
-            padding: 3px;
-            border-radius: 50px;
-            background: linear-gradient(90deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
-            background-size: 400% 400%;
-            animation: moveRGB 8s linear infinite;
-            transition: transform 0.2s ease-out;
-            transform-style: preserve-3d;
-        }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      width: 100%;
+    }
 
-        @keyframes moveRGB {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 400% 50%; }
-        }
+    /* header */
+    header {
+      padding: 1.2rem 0;
+      position: sticky;
+      top: 0;
+      background-color: rgba(0, 0, 0, 0.8);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      z-index: 100;
+      border-bottom: 1px solid rgba(183, 122, 255, 0.2);
+    }
 
-        .btn {
-            background: #000;
-            color: white;
-            text-decoration: none;
-            padding: 18px 40px;
-            border-radius: 47px;
-            font-size: 0.9rem;
-            font-weight: 200;
-            display: block;
-            min-width: 170px;
-            text-align: center;
-            transform: translateZ(20px);
-            white-space: nowrap;
-        }
+    .header-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
 
-        @media (max-width: 768px) {
-            .container { flex-direction: column; gap: 20px; align-items: center; }
-            h1 { letter-spacing: 6px; margin-bottom: 2rem; }
-            .btn-wrapper:hover { transform: scale(1.05); }
-        }
+    .logo {
+      font-size: 2.2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #d6b0ff, #b77aff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: -1px;
+    }
 
-        footer {
-            position: fixed;
-            bottom: 20px;
-            font-size: 0.6rem;
-            letter-spacing: 3px;
-            opacity: 0.4;
-            color: white;
-            z-index: 1;
-            pointer-events: none;
-        }
-    </style>
+    .nav-links {
+      display: flex;
+      gap: 2.2rem;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 500;
+      color: var(--text-dim);
+      transition: 0.2s;
+      font-size: 1rem;
+      position: relative;
+    }
+    .nav-links a:hover {
+      color: var(--purple-light);
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -4px;
+      left: 0;
+      width: 0%;
+      height: 2px;
+      background: var(--purple-primary);
+      transition: 0.2s;
+    }
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+    .talk-btn {
+      background: transparent;
+      border: 1.5px solid var(--purple-primary);
+      padding: 0.5rem 1.3rem;
+      border-radius: 30px;
+      color: var(--purple-light) !important;
+      font-weight: 600;
+      transition: 0.3s !important;
+    }
+    .talk-btn:hover {
+      background: var(--purple-primary);
+      color: #000000 !important;
+      box-shadow: 0 0 18px var(--purple-glow);
+    }
+    .talk-btn::after {
+      display: none;
+    }
+
+    /* hero typing */
+    .hero {
+      padding: 5rem 0 3rem;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 3rem;
+    }
+    .hero-content {
+      flex: 1 1 500px;
+    }
+    .hero-greeting {
+      font-size: 1.2rem;
+      color: var(--purple-light);
+      margin-bottom: 0.5rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-name {
+      font-size: clamp(2.5rem, 7vw, 4.5rem);
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 1.2rem;
+      min-height: 6rem;
+    }
+    .static-part {
+      color: #ffffff;
+    }
+    .dynamic-part {
+      background: linear-gradient(135deg, #cba6ff, #a66eff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      border-right: 3px solid var(--purple-primary);
+      padding-right: 5px;
+      animation: blinkCursor 0.7s step-end infinite;
+    }
+    @keyframes blinkCursor {
+      0%, 100% { border-color: var(--purple-primary); }
+      50% { border-color: transparent; }
+    }
+
+    .hero-desc {
+      font-size: 1.2rem;
+      color: var(--text-dim);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      border-left: 4px solid var(--purple-primary);
+      padding-left: 1.5rem;
+    }
+    .hero-actions {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--purple-primary);
+      color: #000;
+      font-weight: 600;
+      padding: 0.9rem 2.4rem;
+      border-radius: 40px;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid transparent;
+      transition: 0.25s;
+      box-shadow: 0 5px 20px rgba(183, 122, 255, 0.3);
+    }
+    .btn-primary:hover {
+      background: transparent;
+      border-color: var(--purple-primary);
+      color: var(--purple-light);
+      box-shadow: 0 0 25px var(--purple-glow);
+    }
+    .social-in {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+    }
+    .social-in a {
+      color: var(--text-dim);
+      font-size: 1.5rem;
+      transition: 0.2s;
+    }
+    .social-in a:hover {
+      color: var(--purple-primary);
+      transform: translateY(-3px);
+    }
+    .github-icon {
+      background: #111;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--purple-primary);
+      color: var(--purple-light);
+      font-size: 1.4rem !important;
+      text-decoration: none;
+    }
+
+    /* works */
+    .section-title {
+      font-size: 2.5rem;
+      font-weight: 600;
+      margin: 3rem 0 2rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -8px;
+      width: 60%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--purple-primary), transparent);
+      border-radius: 4px;
+    }
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+      margin: 3rem 0 4rem;
+    }
+    .project-card {
+      background: var(--bg-card-alt);
+      border-radius: 28px;
+      padding: 2rem 1.8rem;
+      border: 1px solid #242024;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      position: relative;
+      overflow: hidden;
+    }
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--purple-primary);
+      box-shadow: 0 25px 30px -15px rgba(183, 122, 255, 0.25);
+    }
+    .project-icon {
+      font-size: 2.2rem;
+      color: var(--purple-primary);
+      margin-bottom: 1.2rem;
+    }
+    .project-title {
+      font-size: 1.6rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: white;
+    }
+    .project-desc {
+      color: var(--text-dim);
+      font-size: 0.95rem;
+      margin-bottom: 1.8rem;
+      line-height: 1.5;
+    }
+    .project-links {
+      display: flex;
+      gap: 1.5rem;
+    }
+    .project-links a {
+      color: var(--text-dim);
+      text-decoration: none;
+      font-size: 0.95rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+      background: rgba(255,255,255,0.02);
+      padding: 0.3rem 1rem;
+      border-radius: 40px;
+      border: 1px solid #2f2a37;
+    }
+    .project-links a i {
+      color: var(--purple-light);
+    }
+    .project-links a:hover {
+      background: rgba(183, 122, 255, 0.1);
+      border-color: var(--purple-primary);
+      color: white;
+    }
+
+    /* about & contact */
+    .about-card {
+      background: #0b0b0b;
+      border-radius: 32px;
+      padding: 2.5rem;
+      border: 1px solid #262127;
+      margin: 3rem 0;
+    }
+    .contact-area {
+      padding: 4rem 0;
+    }
+    .contact-card {
+      background: linear-gradient(145deg, #0a070f, #020202);
+      border-radius: 60px;
+      padding: 3.5rem;
+      border: 1px solid #3a2a4a;
+      text-align: center;
+    }
+
+    /* footer expanded */
+    footer {
+      background: #050505;
+      border-top: 1px solid #1f1a2b;
+      margin-top: 5rem;
+      padding: 3rem 0 2rem;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1.5fr;
+      gap: 3rem;
+      align-items: start;
+    }
+    .footer-col p {
+      color: #8f85b0;
+      margin: 1rem 0 1.5rem;
+      max-width: 260px;
+      font-size: 0.95rem;
+    }
+    .footer-logo {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #b77aff, #dbb9ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .social-links {
+      display: flex;
+      gap: 1.2rem;
+    }
+    .social-links a {
+      color: #a186c9;
+      font-size: 1.4rem;
+      transition: 0.2s;
+    }
+    .social-links a:hover {
+      color: var(--purple-primary);
+    }
+    .footer-col h4 {
+      color: white;
+      font-size: 1.2rem;
+      margin-bottom: 1.2rem;
+      letter-spacing: 0.5px;
+    }
+    .footer-col ul {
+      list-style: none;
+    }
+    .footer-col ul li {
+      margin-bottom: 0.8rem;
+    }
+    .footer-col ul li a {
+      color: #8f85b0;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+    .footer-col ul li a:hover {
+      color: var(--purple-light);
+      padding-left: 5px;
+    }
+    .copyright {
+      grid-column: span 3;
+      text-align: center;
+      color: #5f5580;
+      border-top: 1px solid #231e30;
+      padding-top: 2rem;
+      margin-top: 2rem;
+    }
+    @media (max-width: 800px) {
+      .footer-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+      .copyright { grid-column: span 2; }
+    }
+    @media (max-width: 550px) {
+      .footer-grid { grid-template-columns: 1fr; }
+      .copyright { grid-column: span 1; }
+      .container { padding: 0 1.2rem; }
+    }
+
+    /* extra */
+    .inline-icon {
+      margin-right: 6px;
+    }
+  </style>
 </head>
 <body>
-
-    <canvas></canvas>
-
-    <div class="content">
-        <h1>Yağız Kaan Şaklu</h1>
-        <div class="container">
-            <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
-                <a href="https://github.com/yagizkaansaklu/PassCase" class="btn">PassCase</a>
-            </div>
-            <div class="btn-wrapper" onmousemove="tilt(event, this)" onmouseleave="resetTilt(this)">
-                <a href="https://github.com/reldiscord/reldiscord" class="btn">RelDiscord</a>
-            </div>
-        </div>
+  <header>
+    <div class="container header-inner">
+      <img src="img/logo.png" alt="Logo" width="170" height="30">
+      <nav class="nav-links">
+        <a href="#works">Works</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="talk-btn">Let's Talk</a>
+      </nav>
     </div>
+  </header>
 
-    <footer>YAGIZ KAAN SAKLU &copy; 2026</footer>
+  <main>
+    <!-- HERO with typing animation -->
+    <section class="container hero">
+      <div class="hero-content" data-aos="fade-right" data-aos-duration="700">
+        <div class="hero-greeting">
+          <i class="fa-regular fa-hand-peace" style="color: #b77aff;"></i> Hi there,
+        </div>
+        <h1 class="hero-name">
+          <span class="static-part">I'm<span style="color:transparent;"> </span></span>
+          <span class="dynamic-part" id="typing-name"></span>
+        </h1>
+        <p class="hero-desc">
+          I’m an independent developer building small projects and constantly improving my skills.
+        </p>
+        <div class="hero-actions">
+          <a href="#works" class="btn-primary"><span>See My Works</span> <i class="fa-solid fa-arrow-right"></i></a>
+          <div class="social-in">
+            <a href="https://github.com/yagizkaansaklu" target="_blank" class="github-icon" title="GitHub">
+              <i class="fa-brands fa-github"></i>
+            </a>
+          </div>
+        </div>
+        <!-- hidden SEO keywords -->
+        <span style="display: none;">r3linex relinex yağız kaan şaklu</span>
+      </div>
+      <div class="hero-visual" data-aos="fade-left" data-aos-duration="700" style="flex:1; min-width:200px; height: 260px; background: radial-gradient(circle at 70% 40%, #3d2557, transparent 70%); border-radius: 50% 50% 30% 70% / 40% 60% 40% 60%;"></div>
+    </section>
 
-    <script>
-        'use strict';
-        const canvas = document.getElementsByTagName('canvas')[0];
-        const config = {
-            TEXTURE_DOWNSAMPLE: 1,
-            DENSITY_DISSIPATION: 0.98,
-            VELOCITY_DISSIPATION: 0.99,
-            PRESSURE_DISSIPATION: 0.8,
-            PRESSURE_ITERATIONS: 25,
-            CURL: 30,
-            SPLAT_RADIUS: 0.005
-        };
+    <!-- WORKS (projects) with functional repo/demo links -->
+    <section id="works" class="container">
+      <h2 class="section-title" data-aos="fade-up">Selected Works</h2>
+      <div class="projects-grid">
+        <!-- proje 1 -->
+        <div class="project-card" data-aos="zoom-in-up" data-aos-delay="100">
+          <div class="project-icon"><i class="fa-solid fa-cubes"></i></div>
+          <h3 class="project-title">relDiscord</h3>
+          <p class="project-desc">MA modern Minecraft plugin that seamlessly connects your server with Discord.</p>
+          <div class="project-links"> 
+            <a href="https://github.com/reldiscord/reldiscord" target="_blank"><i class="fa-brands fa-github"></i> Repo</a>
+          </div>
+        </div>
+        <!-- proje 2 -->
+        <div class="project-card" data-aos="zoom-in-up" data-aos-delay="200">
+          <div class="project-icon"><i class="fa-solid fa-cloud-moon"></i></div>
+          <h3 class="project-title">PassCase (Archived)</h3>
+          <p class="project-desc">Simple Password Manager For Android.</p>
+          <div class="project-links">
+            <a href="https://github.com/yagizkaansaklu/PassCase" target="_blank"><i class="fa-brands fa-github"></i> Repo</a>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        let _getWebGLContext = getWebGLContext(canvas);
-        let gl = _getWebGLContext.gl;
-        let ext = _getWebGLContext.ext;
-        let support_linear_float = _getWebGLContext.support_linear_float;
+    <!-- ABOUT (sade) -->
+    <section id="about" class="container">
+      <h2 class="section-title" data-aos="fade-up">About</h2>
+      <div class="about-card" data-aos="fade-up">
+        <p style="color:#d9c7ff; font-size:1.2rem; margin-bottom:1.5rem;">
+          <i class="fa-solid fa-quote-left" style="color:var(--purple-primary); margin-right:10px;"></i> 
+          I’m an amateur developer and I also like making music. I enjoy small projects and learning new things. I do it for fun and to improve myself.
+        <div style="display:flex; gap:2rem; flex-wrap:wrap;">
+          <span><i class="fa-regular fa-envelope" style="color:var(--purple-primary);"></i> yagizkaansaklı@gmail.com</span>
+          <span><i class="fa-brands fa-github"></i> /yagizkaansaklu</span>
+          <span><i class="fa-brands fa-instagram"></i> /yagizkaansaklu</span>
+          <span><i class="fa-brands fa-youtube"></i> /@relinex</span>
+        </div>
+      </div>
+    </section>
 
-        function getWebGLContext(canvas) {
-            let params = { alpha: false, depth: false, stencil: false, antialias: false };
-            let gl = canvas.getContext('webgl2', params);
-            let isWebGL2 = !!gl;
-            if (!isWebGL2) gl = canvas.getContext('webgl', params) || canvas.getContext('experimental-webgl', params);
-            let halfFloat = gl.getExtension('OES_texture_half_float');
-            let support_linear_float = gl.getExtension('OES_texture_half_float_linear');
-            if (isWebGL2) {
-                gl.getExtension('EXT_color_buffer_float');
-                support_linear_float = gl.getExtension('OES_texture_float_linear');
-            }
-            gl.clearColor(0.0, 0.0, 0.0, 1.0);
-            let internalFormat = isWebGL2 ? gl.RGBA16F : gl.RGBA;
-            let internalFormatRG = isWebGL2 ? gl.RG16F : gl.RGBA;
-            let formatRG = isWebGL2 ? gl.RG : gl.RGBA;
-            let texType = isWebGL2 ? gl.HALF_FLOAT : halfFloat.HALF_FLOAT_OES;
-            return { gl, ext: { internalFormat, internalFormatRG, formatRG, texType }, support_linear_float };
-        }
+    <!-- LET'S TALK -->
+    <section id="contact" class="container contact-area">
+      <div class="contact-card" data-aos="flip-up">
+        <h2 style="font-size: 2.5rem; margin-bottom: 1rem;">Let's Talk <i class="fa-regular fa-comment-dots" style="color:var(--purple-primary);"></i></h2>
+        <p style="color: #bcb0d9; max-width: 500px; margin: 0 auto 2rem;">You can contact me.</p>
+        <a href="mailto:yagizkaansaklu@gmail.com" class="btn-primary" style="margin-top: 0.5rem; display: inline-flex;"><i class="fa-regular fa-paper-plane"></i> yagiz@r3linex.dev</a>
+      </div>
+    </section>
+  </main>
 
-        class GLProgram {
-            constructor(vertexShader, fragmentShader) {
-                this.uniforms = {};
-                this.program = gl.createProgram();
-                gl.attachShader(this.program, vertexShader);
-                gl.attachShader(this.program, fragmentShader);
-                gl.linkProgram(this.program);
-                let uniformCount = gl.getProgramParameter(this.program, gl.ACTIVE_UNIFORMS);
-                for (let i = 0; i < uniformCount; i++) {
-                    let uniformName = gl.getActiveUniform(this.program, i).name;
-                    this.uniforms[uniformName] = gl.getUniformLocation(this.program, uniformName);
-                }
-            }
-            bind() { gl.useProgram(this.program); }
-        }
+  <!-- GENİŞLETİLMİŞ FOOTER -->
+  <footer>
+    <div class="container footer-grid">
+      <div class="footer-col">
+        <img src="img/logo.png" alt="Logo" width="170" height="30">
+        <p>I’m an independent developer building small projects and constantly improving my skills.</p>
+        <div class="social-links">
+          <a href="https://github.com/yagizkaansaklu" target="_blank"><i class="fa-brands fa-github"></i></a>
+          <a href="https://youtube.com/@relinex" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+          <a href="https://instagram.com/yagizkaansaklu" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" target="_blank"><i class="fa-brands fa-discord"></i></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Discover</h4>
+        <ul>
+          <li><a href="#works">Works</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Projects</h4>
+        <ul>
+          <li><a href="https://github.com/reldiscord/reldiscord" target="_blank">relDiscord</a></li>
+          <li><a href="https://github.com/yagizkaansaklu/PassCase" target="_blank">PassCase</a></li>
+        </ul>
+      </div>
+      <div class="copyright">
+        <i class="fa-regular fa-copyright"></i> 2026 Yağız Kaan Şaklu · r3linex - All Rights Reserved.
+      </div>
+    </div>
+  </footer>
 
-        function compileShader(type, source) {
-            let shader = gl.createShader(type);
-            gl.shaderSource(shader, source);
-            gl.compileShader(shader);
-            return shader;
-        }
+  <!-- AOS -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({ duration: 800, once: true, offset: 100 });
+  </script>
 
-        const baseVertexShader = compileShader(gl.VERTEX_SHADER, 'precision highp float; attribute vec2 aPosition; varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB; uniform vec2 texelSize; void main () { vUv = aPosition * 0.5 + 0.5; vL = vUv - vec2(texelSize.x, 0.0); vR = vUv + vec2(texelSize.x, 0.0); vT = vUv + vec2(0.0, texelSize.y); vB = vUv - vec2(0.0, texelSize.y); gl_Position = vec4(aPosition, 0.0, 1.0); }');
-        const clearShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; uniform sampler2D uTexture; uniform float value; void main () { gl_FragColor = value * texture2D(uTexture, vUv); }');
-        const displayShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; uniform sampler2D uTexture; void main () { gl_FragColor = texture2D(uTexture, vUv); }');
-        const advectionShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; uniform sampler2D uVelocity; uniform sampler2D uSource; uniform vec2 texelSize; uniform float dt; uniform float dissipation; void main () { vec2 coord = vUv - dt * texture2D(uVelocity, vUv).xy * texelSize; gl_FragColor = dissipation * texture2D(uSource, coord); }');
-        const divergenceShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB; uniform sampler2D uVelocity; vec2 sampleVelocity (in vec2 uv) { vec2 multiplier = vec2(1.0, 1.0); if (uv.x < 0.0) { uv.x = 0.0; multiplier.x = -1.0; } if (uv.x > 1.0) { uv.x = 1.0; multiplier.x = -1.0; } if (uv.y < 0.0) { uv.y = 0.0; multiplier.y = -1.0; } if (uv.y > 1.0) { uv.y = 1.0; multiplier.y = -1.0; } return multiplier * texture2D(uVelocity, uv).xy; } void main () { float L = sampleVelocity(vL).x; float R = sampleVelocity(vR).x; float T = sampleVelocity(vT).y; float B = sampleVelocity(vB).y; float div = 0.5 * (R - L + T - B); gl_FragColor = vec4(div, 0.0, 0.0, 1.0); }');
-        const curlShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB; uniform sampler2D uVelocity; void main () { float L = texture2D(uVelocity, vL).y; float R = texture2D(uVelocity, vR).y; float T = texture2D(uVelocity, vT).x; float B = texture2D(uVelocity, vB).x; float vorticity = R - L - T + B; gl_FragColor = vec4(vorticity, 0.0, 0.0, 1.0); }');
-        const vorticityShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB; uniform sampler2D uVelocity; uniform sampler2D uCurl; uniform float curl; uniform float dt; void main () { float L = texture2D(uCurl, vL).y; float R = texture2D(uCurl, vR).y; float T = texture2D(uCurl, vT).x; float B = texture2D(uCurl, vB).x; float C = texture2D(uCurl, vUv).x; vec2 force = vec2(abs(T) - abs(B), abs(R) - abs(L)); force *= 1.0 / length(force + 0.00001) * curl * C; vec2 vel = texture2D(uVelocity, vUv).xy; gl_FragColor = vec4(vel + force * dt, 0.0, 1.0); }');
-        const pressureShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB; uniform sampler2D uPressure; uniform sampler2D uDivergence; vec2 boundary (in vec2 uv) { uv = min(max(uv, 0.0), 1.0); return uv; } void main () { float L = texture2D(uPressure, boundary(vL)).x; float R = texture2D(uPressure, boundary(vR)).x; float T = texture2D(uPressure, boundary(vT)).x; float B = texture2D(uPressure, boundary(vB)).x; float divergence = texture2D(uDivergence, vUv).x; float pressure = (L + R + B + T - divergence) * 0.25; gl_FragColor = vec4(pressure, 0.0, 0.0, 1.0); }');
-        const gradientSubtractShader = compileShader(gl.FRAGMENT_SHADER, 'precision highp float; varying vec2 vUv; varying vec2 vL; varying vec2 vR; varying vec2 vT; varying vec2 vB; uniform sampler2D uPressure; uniform sampler2D uVelocity; vec2 boundary (in vec2 uv) { uv = min(max(uv, 0.0), 1.0); return uv; } void main () { float L = texture2D(uPressure, boundary(vL)).x; float R = texture2D(uPressure, boundary(vR)).x; float T = texture2D(uPressure, boundary(vT)).x; float B = texture2D(uPressure, boundary(vB)).x; vec2 velocity = texture2D(uVelocity, vUv).xy; velocity.xy -= vec2(R - L, T - B); gl_FragColor = vec4(velocity, 0.0, 1.0); }');
+  <!-- Typewriter effect for "Yağız Kaan Şaklu" -->
+  <script>
+    const nameElement = document.getElementById('typing-name');
+    const names = [
+      "Yağız Kaan Şaklu",
+      "r3linex",
+      "Relinex",
+      "Yağız Kaan"
+    ];
+    let nameIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let currentText = '';
 
-        let textureWidth, textureHeight, density, velocity, divergence, curl, pressure;
-        const clearProgram = new GLProgram(baseVertexShader, clearShader);
-        const displayProgram = new GLProgram(baseVertexShader, displayShader);
-        const advectionProgram = new GLProgram(baseVertexShader, advectionShader);
-        const divergenceProgram = new GLProgram(baseVertexShader, divergenceShader);
-        const curlProgram = new GLProgram(baseVertexShader, curlShader);
-        const vorticityProgram = new GLProgram(baseVertexShader, vorticityShader);
-        const pressureProgram = new GLProgram(baseVertexShader, pressureShader);
-        const gradienSubtractProgram = new GLProgram(baseVertexShader, gradientSubtractShader);
+    function typeEffect() {
+      const fullName = names[nameIndex];
+      if (isDeleting) {
+        currentText = fullName.substring(0, charIndex - 1);
+        charIndex--;
+      } else {
+        currentText = fullName.substring(0, charIndex + 1);
+        charIndex++;
+      }
 
-        function initFramebuffers() {
-            textureWidth = gl.drawingBufferWidth >> config.TEXTURE_DOWNSAMPLE;
-            textureHeight = gl.drawingBufferHeight >> config.TEXTURE_DOWNSAMPLE;
-            let iFormat = ext.internalFormat, iFormatRG = ext.internalFormatRG, formatRG = ext.formatRG, texType = ext.texType;
-            density = createDoubleFBO(0, textureWidth, textureHeight, iFormat, gl.RGBA, texType, support_linear_float ? gl.LINEAR : gl.NEAREST);
-            velocity = createDoubleFBO(2, textureWidth, textureHeight, iFormatRG, formatRG, texType, support_linear_float ? gl.LINEAR : gl.NEAREST);
-            divergence = createFBO(4, textureWidth, textureHeight, iFormatRG, formatRG, texType, gl.NEAREST);
-            curl = createFBO(5, textureWidth, textureHeight, iFormatRG, formatRG, texType, gl.NEAREST);
-            pressure = createDoubleFBO(6, textureWidth, textureHeight, iFormatRG, formatRG, texType, gl.NEAREST);
-        }
+      nameElement.textContent = currentText;
 
-        function createFBO(texId, w, h, internalFormat, format, type, param) {
-            gl.activeTexture(gl.TEXTURE0 + texId);
-            let texture = gl.createTexture();
-            gl.bindTexture(gl.TEXTURE_2D, texture);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MIN_FILTER, param);
-            gl.texParameteri(gl.TEXTURE_2D, gl.TEXTURE_MAG_FILTER, param);
-            gl.texImage2D(gl.TEXTURE_2D, 0, internalFormat, w, h, 0, format, type, null);
-            let fbo = gl.createFramebuffer();
-            gl.bindFramebuffer(gl.FRAMEBUFFER, fbo);
-            gl.framebufferTexture2D(gl.FRAMEBUFFER, gl.COLOR_ATTACHMENT0, gl.TEXTURE_2D, texture, 0);
-            return [texture, fbo, texId];
-        }
+      if (!isDeleting && charIndex === fullName.length) {
+        isDeleting = true;
+        setTimeout(typeEffect, 2000); // bekle
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        nameIndex = (nameIndex + 1) % names.length;
+        setTimeout(typeEffect, 300);
+      } else {
+        const speed = isDeleting ? 60 : 100;
+        setTimeout(typeEffect, speed);
+      }
+    }
 
-        function createDoubleFBO(texId, w, h, internalFormat, format, type, param) {
-            let fbo1 = createFBO(texId, w, h, internalFormat, format, type, param);
-            let fbo2 = createFBO(texId + 1, w, h, internalFormat, format, type, param);
-            return { get first() { return fbo1; }, get second() { return fbo2; }, swap() { let temp = fbo1; fbo1 = fbo2; fbo2 = temp; } };
-        }
+    // start typing after page load
+    window.addEventListener('load', () => {
+      setTimeout(typeEffect, 500);
+    });
+  </script>
 
-        const blit = (() => {
-            gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-            gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, -1, 1, 1, 1, 1, -1]), gl.STATIC_DRAW);
-            gl.bindBuffer(gl.ELEMENT_ARRAY_BUFFER, gl.createBuffer());
-            gl.bufferData(gl.ELEMENT_ARRAY_BUFFER, new Uint16Array([0, 1, 2, 0, 2, 3]), gl.STATIC_DRAW);
-            gl.vertexAttribPointer(0, 2, gl.FLOAT, false, 0, 0);
-            gl.enableVertexAttribArray(0);
-            return (destination) => {
-                gl.bindFramebuffer(gl.FRAMEBUFFER, destination);
-                gl.drawElements(gl.TRIANGLES, 6, gl.UNSIGNED_SHORT, 0);
-            };
-        })();
-
-        let lastTime = Date.now();
-        initFramebuffers();
-        update();
-
-        function update() {
-            resizeCanvas();
-            let dt = Math.min((Date.now() - lastTime) / 1000, 0.016);
-            lastTime = Date.now();
-            gl.viewport(0, 0, textureWidth, textureHeight);
-
-            advectionProgram.bind();
-            gl.uniform2f(advectionProgram.uniforms.texelSize, 1.0 / textureWidth, 1.0 / textureHeight);
-            gl.uniform1i(advectionProgram.uniforms.uVelocity, velocity.first[2]);
-            gl.uniform1i(advectionProgram.uniforms.uSource, velocity.first[2]);
-            gl.uniform1f(advectionProgram.uniforms.dt, dt);
-            gl.uniform1f(advectionProgram.uniforms.dissipation, config.VELOCITY_DISSIPATION);
-            blit(velocity.second[1]); velocity.swap();
-
-            gl.uniform1i(advectionProgram.uniforms.uSource, density.first[2]);
-            gl.uniform1f(advectionProgram.uniforms.dissipation, config.DENSITY_DISSIPATION);
-            blit(density.second[1]); density.swap();
-
-            curlProgram.bind();
-            gl.uniform2f(curlProgram.uniforms.texelSize, 1.0 / textureWidth, 1.0 / textureHeight);
-            gl.uniform1i(curlProgram.uniforms.uVelocity, velocity.first[2]);
-            blit(curl[1]);
-
-            vorticityProgram.bind();
-            gl.uniform1i(vorticityProgram.uniforms.uCurl, curl[2]);
-            gl.uniform1f(vorticityProgram.uniforms.curl, config.CURL);
-            gl.uniform1f(vorticityProgram.uniforms.dt, dt);
-            blit(velocity.second[1]); velocity.swap();
-
-            divergenceProgram.bind();
-            gl.uniform1i(divergenceProgram.uniforms.uVelocity, velocity.first[2]);
-            blit(divergence[1]);
-
-            clearProgram.bind();
-            gl.uniform1i(clearProgram.uniforms.uTexture, pressure.first[2]);
-            gl.uniform1f(clearProgram.uniforms.value, config.PRESSURE_DISSIPATION);
-            blit(pressure.second[1]); pressure.swap();
-
-            pressureProgram.bind();
-            gl.uniform1i(pressureProgram.uniforms.uDivergence, divergence[2]);
-            for (let i = 0; i < config.PRESSURE_ITERATIONS; i++) {
-                gl.uniform1i(pressureProgram.uniforms.uPressure, pressure.first[2]);
-                blit(pressure.second[1]); pressure.swap();
-            }
-
-            gradienSubtractProgram.bind();
-            gl.uniform1i(gradienSubtractProgram.uniforms.uPressure, pressure.first[2]);
-            gl.uniform1i(gradienSubtractProgram.uniforms.uVelocity, velocity.first[2]);
-            blit(velocity.second[1]); velocity.swap();
-
-            gl.viewport(0, 0, gl.drawingBufferWidth, gl.drawingBufferHeight);
-            displayProgram.bind();
-            gl.uniform1i(displayProgram.uniforms.uTexture, density.first[2]);
-            blit(null);
-            requestAnimationFrame(update);
-        }
-
-        function resizeCanvas() {
-            if (canvas.width !== canvas.clientWidth || canvas.height !== canvas.clientHeight) {
-                canvas.width = canvas.clientWidth; canvas.height = canvas.clientHeight;
-                initFramebuffers();
-            }
-        }
-
-        function tilt(e, el) {
-            if (window.innerWidth < 768) return;
-            const rect = el.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            const rotateX = (centerY - y) / 7; 
-            const rotateY = (x - centerX) / 11;
-            el.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.08, 1.08, 1.08)`;
-        }
-
-        function resetTilt(el) {
-            el.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
-        }
-    </script>
+  <!-- smooth scroll -->
+  <script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === "#") return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
+  </script>
 </body>
 </html>
