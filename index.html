@@ -5,11 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
   <title>Yağız Kaan Şaklu · r3linex</title>
   <!-- SEO meta -->
-  <meta name="description" content="Yağız Kaan Şaklu (r3linex) kişisel web sitesi. Projelerim, çalışmalarım ve iletişim bilgilerim.">
+  <meta name="description" content="- Yağız Kaan Şaklu - r3linex">
   <meta name="keywords" content="yağız kaan şaklu, r3linex, relinex, kaan şaklu, şaklu, relDiscord, lenos craft">
   <meta name="author" content="Yağız Kaan Şaklu">
   <meta name="robots" content="index, follow">
-  <meta name="google-site-verification" content="tjZqOQwichUp5UQ8kCGLKLR1mxareSZTmctHWhAIrrs" />
   <!-- Open Graph -->
   <meta property="og:title" content="Yağız Kaan Şaklu · r3linex">
   <meta property="og:description" content="Amatör yazılım geliştirici.">
@@ -241,6 +240,11 @@
       color: var(--purple-light);
       box-shadow: 0 0 25px var(--purple-glow);
     }
+    /* Tiklama animasyonu */
+    .btn-primary:active {
+      transform: scale(0.95);
+      transition: transform 0.1s;
+    }
     .social-in {
       display: flex;
       align-items: center;
@@ -437,18 +441,111 @@
       padding-top: 2rem;
       margin-top: 2rem;
     }
+    /* Görüntülenme sayacı stili */
+    .view-counter {
+      grid-column: span 3;
+      text-align: center;
+      color: #7a6a9c;
+      font-size: 1rem;
+      margin-top: 0.4rem;
+      padding-top: 0.1rem;
+    }
+
+    /* Mobil iyileştirmeler */
     @media (max-width: 800px) {
       .footer-grid {
         grid-template-columns: 1fr 1fr;
       }
       .copyright { grid-column: span 2; }
+      .view-counter { grid-column: span 2; }
+    }
+    @media (max-width: 700px) {
+      .hero {
+        flex-direction: column;
+        text-align: center;
+        gap: 1.5rem;
+      }
+      .hero-desc {
+        border-left: none;
+        padding-left: 0;
+        border-top: 2px solid var(--purple-primary);
+        padding-top: 1rem;
+        max-width: 100%;
+      }
+      .hero-actions {
+        justify-content: center;
+      }
+      .nav-links {
+        gap: 1rem;
+      }
+      .talk-btn {
+        padding: 0.4rem 1rem;
+      }
+      .projects-grid {
+        grid-template-columns: 1fr;
+      }
     }
     @media (max-width: 550px) {
-      .footer-grid { grid-template-columns: 1fr; }
-      .copyright { grid-column: span 1; }
       .container { padding: 0 1.2rem; }
+      .header-inner {
+        flex-direction: column;
+        gap: 0.8rem;
+      }
+      .nav-links {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      .hero-name {
+        font-size: 2.2rem;
+        min-height: 5rem;
+      }
+      .hero-desc {
+        font-size: 1rem;
+      }
+      .btn-primary {
+        padding: 0.7rem 1.5rem;
+        font-size: 0.9rem;
+      }
+      .github-icon {
+        width: 42px;
+        height: 42px;
+        font-size: 1.2rem !important;
+      }
+      .section-title {
+        font-size: 2rem;
+      }
+      .project-card {
+        padding: 1.5rem;
+      }
+      .project-title {
+        font-size: 1.4rem;
+      }
+      .about-card {
+        padding: 1.5rem;
+      }
+      .contact-card {
+        padding: 2rem 1rem;
+        border-radius: 40px;
+      }
+      .footer-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+      .footer-col p {
+        max-width: 100%;
+      }
+      .social-links {
+        justify-content: center;
+      }
+      .copyright {
+        grid-column: span 1;
+      }
+      .view-counter {
+        grid-column: span 1;
+      }
     }
-
     /* extra */
     .inline-icon {
       margin-right: 6px;
@@ -577,6 +674,8 @@
       <div class="copyright">
         <i class="fa-regular fa-copyright"></i> 2026 Yağız Kaan Şaklu · r3linex - All Rights Reserved.
       </div>
+      <!-- Görüntülenme sayacı -->
+      <div class="view-counter" id="viewCounter">Viewers: </div>
     </div>
   </footer>
 
@@ -591,9 +690,7 @@
     const nameElement = document.getElementById('typing-name');
     const names = [
       "Yağız Kaan Şaklu",
-      "r3linex",
-      "Relinex",
-      "Yağız Kaan"
+      "r3linex"
     ];
     let nameIndex = 0;
     let charIndex = 0;
@@ -642,6 +739,27 @@
         if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
     });
+  </script>
+
+  <!-- Görüntülenme sayacı script -->
+  <script>
+    (function() {
+      // localStorage'den sayacı oku, yoksa 0'dan başlat
+      let count = localStorage.getItem('pageViewCount');
+      if (count === null) {
+        count = 0;
+      } else {
+        count = parseInt(count, 10);
+      }
+      // Yeni ziyaretçi mi? (sayfa yenileme de artacak şekilde)
+      count++;
+      localStorage.setItem('pageViewCount', count);
+      // HTML'e yaz
+      const counterElement = document.getElementById('viewCounter');
+      if (counterElement) {
+        counterElement.textContent = `Viewers: ${count}`;
+      }
+    })();
   </script>
 </body>
 </html>
